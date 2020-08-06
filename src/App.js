@@ -9,6 +9,11 @@ class App extends Component {
     this.state = {
       msg: "Hello Component"
     };
+    let timer = setInterval(() => {
+      this.setState((state)=>({
+        msg: state.msg + "!"
+      }));
+    }, 10000);
   }
 
   render(){
