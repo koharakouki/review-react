@@ -7,21 +7,27 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      msg: "Hello Component"
+      counter: 0,
+      msg: "count start!",
+      flg: true
     };
-    let timer = setInterval(() => {
-      this.setState((state)=>({
-        msg: state.msg + "!"
-      }));
-    }, 10000);
+    this.doAction = this.doAction.bind(this);
+  }
+
+  doAction(e){
+    this.setState((state)=>({
+      counter: state.counter + 1,
+      msg: 'count: ' + state.counter,
+      flg: !state.flg
+    }));
   }
 
   render(){
     return(
       <div>
         <h1>React</h1>
-        <p>{this.state.msg}</p>
-        <p>{this.props.msg}</p>
+    　　 { this.state.flg ? <p>count: {this.state.msg}</p> : <p>{this.state.msg}です。</p>}
+        <button onClick={this.doAction}>Click</button>
       </div>
     );
   }
