@@ -34,7 +34,7 @@ class App extends Component {
         <form onSubmit={this.doSubmit}>
           <label>
             <span></span>Message:
-            <input type="text" onChange={this.doChange} />
+            <input type="text" onChange={this.doChange} required pattern="[A-Za-z _,.]+" />
           </label>
           <input type="submit" value="Click" />
         </form>
