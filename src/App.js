@@ -1,46 +1,62 @@
 import React, { Component } from 'react';
 // import Rect from './components/Rect'
 import './App.css';
-import { render } from '@testing-library/react';
+
 
 class App extends Component {
-  data = [];
+  input = '';
 
-  constructor(props)[
+  constructor(props){
     super(props);
     this.state = {
-      list: this.data
+      message: 'type your name.'
     };
-    this.doAction = this.doAction.bind(this);
-  ]
-
-  doAction(e){
-    let x = e.pageX;
-    let y = e.pageY;
-    this.data.push({ x: x, y: y });
-    this.setState({
-      list: this.data
-    });
+    this.doChange = this.doChange.bind(this);
+    this.doSubmit = this.doSubmit.bind(this);
   }
 
-  draw(d){
-    let s = {
-      position: "absolute",
-      left: (d.x - 25) + "px",
-      top: (d.y - 25) + "px",
-      width: "50px",
-      height: "50px",
-      backgroundColor: "#66f3",
-    };
-    return <div style={s}></div>
+  doChange(event){
+    this.input = event.target.value;
+  }
+
+  doSubmit(event){
+    this.setState({
+      message: "Hello, " + this.input + "!!"
+    });
+    event.preventDefault();
   }
 
   render(){
     return(
       <div>
         <h1>React</h1>
-        <h2>show. rect</h2>
-        <div onClick={this.doAction}>{this.data.map((value)=>this.draw(value))}</div>
+        <Message title="Children">
+          これはコンポーネント内のコンテンツです。
+          マルでテキストを分割し、リストにして表示します。
+          改行は必要ありません。
+        </Message>
+      </div>
+    );
+  }
+}
+
+class Message extends Component {
+  render() {
+    let content = this.props.children;
+    let arr = content.split('。');
+    let arr2 = [];
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i].trim != '') [
+        arr2.push(arr[i]);
+      ]
+    }
+    let list = arr2.map((value, key) => (
+      <li key={key}>{value}.</li>
+    ));
+    return (
+      <div>
+        <h2>{this.props.title}</h2>
+        <ol>{list}</ol>
       </div>
     );
   }
