@@ -21,7 +21,7 @@ class App extends Component {
 
   doSubmit(event){
     this.setState({
-      message: "Hello, " + this.input + "!!"
+      message: 'Hello,' + this.input + "!!"
     });
     event.preventDefault();
   }
@@ -30,33 +30,14 @@ class App extends Component {
     return(
       <div>
         <h1>React</h1>
-        <Message title="Children">
-          これはコンポーネント内のコンテンツです。
-          マルでテキストを分割し、リストにして表示します。
-          改行は必要ありません。
-        </Message>
-      </div>
-    );
-  }
-}
-
-class Message extends Component {
-  render() {
-    let content = this.props.children;
-    let arr = content.split('。');
-    let arr2 = [];
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i].trim != '') [
-        arr2.push(arr[i]);
-      ]
-    }
-    let list = arr2.map((value, key) => (
-      <li key={key}>{value}.</li>
-    ));
-    return (
-      <div>
-        <h2>{this.props.title}</h2>
-        <ol>{list}</ol>
+        <h2>{this.state.message}</h2>
+        <form onSubmit={this.doSubmit}>
+          <label>
+            <span></span>Message:
+            <input type="text" onChange={this.doChange} />
+          </label>
+          <input type="submit" value="Click" />
+        </form>
       </div>
     );
   }
