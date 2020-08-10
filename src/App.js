@@ -11,19 +11,11 @@ class App extends Component {
     this.state = {
       message: 'type your name.'
     };
-    this.doChange = this.doChange.bind(this);
-    this.doSubmit = this.doSubmit.bind(this);
+    this.doCheck = this.doCheck.bind(this);
   }
 
-  doChange(event){
-    this.input = event.target.value;
-  }
-
-  doSubmit(event){
-    this.setState({
-      message: 'Hello,' + this.input + "!!"
-    });
-    event.preventDefault();
+  doCheck(event){
+    alert(event.target.value + "は長すぎます。")
   }
 
   render(){
@@ -31,14 +23,29 @@ class App extends Component {
       <div>
         <h1>React</h1>
         <h2>{this.state.message}</h2>
-        <form onSubmit={this.doSubmit}>
-          <label>
-            <span></span>Message:
-            <input type="text" onChange={this.doChange} required pattern="[A-Za-z _,.]+" />
-          </label>
-          <input type="submit" value="Click" />
-        </form>
+        <Message maxlengh="10" onCheck={this.doCheck} />
       </div>
+    );
+  }
+}
+
+class Message extends Component {
+  constructor(props){
+    super(props);
+    this.doChange = this.doChange.bind(this);
+  }
+
+  doChange(e){
+    if (e.target.value.length > this.props.maxlength){
+      this.props.onCheck(e);
+      e.target.value = 
+      e.target.value.substr(0, this.props.maxlength);
+    }
+  }
+
+  render(){
+    return(
+      <input type="text" onChange={this.doChange} />
     );
   }
 }
